@@ -14,7 +14,7 @@ val = (
     .map(lambda x: x + 1)
     .to_list()
 )
-# [2, 3]
+# val == [2, 3]
 ```
 
 ### Multiline lambda
@@ -29,7 +29,7 @@ val = lambda: block_(
 # val() == 2
 ```
 
-### Statement as expressions
+### Statements as expressions
 
 ```python
 from pysweet import try_, raise_
