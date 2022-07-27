@@ -15,6 +15,9 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Utilities",
 ]
+packages = [
+    { include = "pysweet" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
