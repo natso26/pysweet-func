@@ -1,4 +1,4 @@
-# pysweet
+# py-sweetfunc
 
 Light syntactic sugar for composable Python programs
 
@@ -7,7 +7,7 @@ Light syntactic sugar for composable Python programs
 ### Fluent iterable
 
 ```python
-from pysweet import Iterable_
+from sweetfunc import Iterable_
 
 val = (
     Iterable_([1, 2])
@@ -20,7 +20,7 @@ val = (
 ### Multiline lambda
 
 ```python
-from pysweet import block_
+from sweetfunc import block_
 
 val = lambda: block_(
     x := 1,
@@ -32,7 +32,7 @@ val = lambda: block_(
 ### Statements as expressions
 
 ```python
-from pysweet import try_, raise_
+from sweetfunc import try_, raise_
 
 val = try_(
     lambda: 1 / 0,
