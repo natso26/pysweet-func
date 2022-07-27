@@ -1,5 +1,8 @@
 # pysweet-func
 
+![test](https://github.com/natso26/pysweet-func/actions/workflows/test.yml/badge.svg?branch=main&event=push)
+[![codecov](https://codecov.io/gh/natso26/pysweet-func/branch/main/graph/badge.svg)](https://codecov.io/gh/natso26/pysweet-func)
+
 Light syntactic sugar for composable Python programs
 
 ## Features
