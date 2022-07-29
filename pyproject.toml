@@ -1,10 +1,11 @@
 [tool.poetry]
 name = "pysweet-func"
-version = "1.0.2"
+version = "1.0.3"
 description = "Light syntactic sugar for composable Python programs"
 authors = ["Nat Sothanaphan <natsothanaphan@gmail.com>"]
 readme = "README.md"
 repository = "https://github.com/natso26/pysweet-func"
+keywords = ["functional", "utility"]
 license = "MIT"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
