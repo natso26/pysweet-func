@@ -12,34 +12,32 @@
 ```python
 from pysweet import Iterable_
 
-val = (
-    Iterable_([1, 2])
-    .map(lambda x: x + 1)
-    .to_list()
-)
-# val == [2, 3]
+Iterable_([1, 2]).map(lambda x: x + 1).to_list()
+# [2, 3]
 ```
 
-### Multiline lambda
+### Multi-expression lambda
 
 ```python
 from pysweet import block_
 
-val = lambda: block_(
-    x := 1,
-    x + 1,
-)
-# val() == 2
+(lambda: block_(x := 1, x + 1))()
+# 2
 ```
 
 ### Statements as expressions
 
 ```python
-from pysweet import try_, raise_
+from pysweet import if_, try_, raise_
 
-val = try_(
-    lambda: 1 / 0,
-    catch=lambda e: raise_(ValueError())
-)
-# raises ValueError()
+if_(True, lambda: 1, lambda: 2)
+# 1
+
+try_(lambda: raise_(Exception('test')), catch=lambda e: str(e))
+# 'test'
 ```
+
+## Resources
+
+- [Read the Docs](https://pysweet-func.readthedocs.io)
+- [PyPI](https://pypi.org/project/pysweet-func)

@@ -67,7 +67,8 @@ def raise_(exception: Exception) -> NoReturn:
 
 def try_(do: Callable[[], T], catch: Callable[[Exception], T]) -> T:
     """
-    Allow try-catch blocks inside lambdas. Try ``do``; catch exception with ``catch``.
+    Allow try-catch blocks inside lambdas.
+    Try ``do``; catch exception with ``catch``.
 
     >>> val = lambda: try_(
     ...     lambda: 1,
