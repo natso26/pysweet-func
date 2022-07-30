@@ -4,5 +4,9 @@ formats:
   - pdf
   - epub
 
+python:
+  install:
+    - path: .
+
 sphinx:
   fail_on_warning: true
