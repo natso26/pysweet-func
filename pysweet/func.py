@@ -4,17 +4,45 @@ T = TypeVar('T')
 S = TypeVar('S')
 
 
-def starred_(func: Callable[..., T]) -> Callable[[S], T]:
-    def starred(v):
-        return func(*v)
+def pack_(func: Callable[..., T]) -> Callable[[S], T]:
+    """
+    Transform ``func`` into a single-argument function.
+    The result sends ``(x, y, ...)`` to ``func(x, y, ...)``.
 
-    return starred
+    >>> list(map(pack_(lambda x, y: x + y), [(1, 2), (3, 4)]))
+    [3, 7]
+
+    Args:
+        func: Function.
+
+    Returns:
+        Function with a single packed argument.
+    """
+
+    def packed(args):
+        return func(*args)
+
+    return packed
 
 
 def compose_(*funcs: Callable) -> Callable[[S], T]:
-    def composed(v):
+    """
+    Compose elements of ``funcs``.
+    The result sends ``x`` to ``funcs[-1](funcs[-2](...(funcs[0](x))...))``.
+
+    >>> compose_(lambda x: x + 1, lambda x: x * 2)(1)
+    4
+
+    Args:
+        funcs: Functions.
+
+    Returns:
+        Composed function.
+    """
+
+    def composed(arg):
         for func in funcs:
-            v = func(v)
-        return v
+            arg = func(arg)
+        return arg
 
     return composed
