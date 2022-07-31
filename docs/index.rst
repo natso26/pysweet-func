@@ -1,13 +1,13 @@
 pysweet-func
 ============
 
-Light syntactic sugar for composable Python programs
+Composable Python for production via syntactic sugar
 
 .. toctree::
    :maxdepth: 2
    :caption: Overview
 
-   Introduction <introduction>
+   Readme <readme-link>
 
 .. toctree::
    :maxdepth: 2
