@@ -5,8 +5,8 @@ T = TypeVar('T')
 
 def block_(*args):
     """
-    Allow writing multi-expression lambdas.
     Return the last element of ``args``.
+    Allow writing multi-expression lambdas.
 
     >>> val = lambda: block_(
     ...     x := 1,
@@ -48,7 +48,8 @@ def if_(condition: Any, then_do: Callable[[], T], else_do: Callable[[], T]) -> T
 
 def raise_(exception: Exception) -> NoReturn:
     """
-    Allow raising exceptions inside lambdas. Raise ``exception``.
+    Raise ``exception``.
+    Allow raising exceptions inside lambdas.
 
     >>> val = lambda: raise_(Exception('test'))
     >>> val()

@@ -3,15 +3,13 @@ pysweet-func
 
 |test| |codecov| |Documentation Status| |PyPI version|
 
-Rationale
----------
+Why ``pysweet``?
+----------------
 
-Python can be unwieldy in real production systems, due to its favor of
-imperative programming style. However, attempts to rewrite code to be
-more modular in functional programming style usually result in
-hard-to-read code due to Python’s quirky syntax in this area.
+Python can sometimes be unwieldy in production.
 
-Consider the following example:
+Consider the following 3 variants
+of the same logic:
 
 .. code:: python
 
@@ -23,23 +21,12 @@ Consider the following example:
        if y % 2 == 0:
            acc.extend([y, y * 2])
 
-In the imperative style, the code is clean and pythonic, but with more
-business logic, the code can get complicated with nested for loops and
-mutable accumulators.
-
-To solve this, we may try to rewrite the code using comprehensions:
-
 .. code:: python
 
    acc = [
        z for y in (x + 1 for x in range(10))
        for z in [y, y * 2] if y % 2 == 0
    ]
-
-The result is unfortunately not very readable. When nested,
-comprehensions can also get complicated.
-
-Another alternative is functional Python:
 
 .. code:: python
 
@@ -53,11 +40,16 @@ Another alternative is functional Python:
        ),
    )))
 
-I favored this style for quite some time. Although it may look
-unfamiliar at first, the code is modular and each part can easily be
-reasoned about.
+* The first is in the imperative style;
+  it can become convoluted as requirements evolve.
 
-However, in e.g. JavaScript, the same logic is much easier to read:
+* The second uses comprehensions,
+  which can get complicated when nested.
+
+* The last utilizes functional programming:
+  more modular, but not as readable.
+
+In JavaScript, the same logic is simpler:
 
 .. code:: js
 
@@ -66,11 +58,9 @@ However, in e.g. JavaScript, the same logic is much easier to read:
        .filter(x => x % 2 === 0)
        .flatMap(x => [x, x * 2])
 
-So we can ask: can we write the same thing in Python? (Note: the
-JavaScript version has worse performance in general due to eager
-evaluation.)
+Can we write analogous code in Python?
 
-Now you can with ``pysweet``!
+Now you can with ``pysweet``:
 
 .. code:: python
 
@@ -84,20 +74,19 @@ Now you can with ``pysweet``!
        .to_list()
    )
 
-Many other excellent functional programming libraries provide similar
-capabilities to ``pysweet``. However, ``pysweet`` sets itself apart by
-being incredibly lightweight: it is only light syntactic sugar over
-built-in Python functionality. This has the advantages of:
+Compared to many excellent alternatives,
+``pysweet`` is lightweight
+with fewer than 100 lines of code.
 
--  Minimizing performance overhead;
--  Simplifying debugging;
--  Making developer onboarding easy and preventing solution lock-in.
+Being only syntactic sugar, ``pysweet``:
 
-Moreover, the library is very small, with less than 100 lines of code!
+* has little performance overhead;
+* does not complicate debugging;
+* makes onboarding new developers easy.
 
-``pysweet`` is being successfully used in a production repo.
+``pysweet`` has successfully been used in production.
 
-Python can become composable with a little sweetening from ``pysweet``.
+Sweeten Python with ``pysweet``!
 
 Features
 --------
@@ -105,8 +94,8 @@ Features
 Fluent iterable
 ~~~~~~~~~~~~~~~
 
-Wrapper iterable implementing method chaining, in the style of
-JavaScript and Scala.
+Iterable with method chaining
+in the style of JavaScript and Scala.
 
 .. code:: python
 
@@ -122,7 +111,8 @@ JavaScript and Scala.
 Multi-expression lambda
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Available in many modern languages, even systems ones such as Go.
+As in many modern languages,
+even a systems one like Go.
 
 .. code:: python
 
@@ -137,8 +127,11 @@ Available in many modern languages, even systems ones such as Go.
 Statements as expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Composable control flow, as found in functional languages such as Scala
-and Haskell.
+Composable control flow as in functional languages
+such as Scala and Haskell.
+
+Bonus: ``if_`` is the ternary operator
+in the natural order.
 
 .. code:: python
 
@@ -156,8 +149,6 @@ and Haskell.
        catch=lambda e: str(e),
    )
    # 'test'
-
-Bonus: The ternary operator in its natural order :)
 
 Documentation
 -------------

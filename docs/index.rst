@@ -1,7 +1,7 @@
 pysweet-func
 ============
 
-Composable Python for production via syntactic sugar
+Composable Python for production via syntactic sugar.
 
 .. toctree::
    :maxdepth: 2
