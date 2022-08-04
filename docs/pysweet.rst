@@ -4,7 +4,7 @@ pysweet
 pysweet.block
 -------------
 
-Allow writing complex lambdas by
+Write complex lambdas by
 converting statements to expressions.
 
 .. automodule:: pysweet.block
@@ -15,7 +15,7 @@ converting statements to expressions.
 pysweet.func
 ------------
 
-Convenience function transformers.
+Function transformers.
 
 .. automodule:: pysweet.func
     :members:
@@ -25,7 +25,8 @@ Convenience function transformers.
 pysweet.iterable
 ----------------
 
-Chainable, immutable wrapper of ``Iterable``.
+Immutable wrapper of ``Iterable``
+with method chaining.
 
 .. automodule:: pysweet.iterable
     :members:

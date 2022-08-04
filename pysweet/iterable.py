@@ -7,7 +7,7 @@ B = TypeVar('B')
 
 class Iterable_(Iterable[A]):
     """
-    An ``Iterable`` wrapping ``it`` exposing the same ``Iterator`` as ``it``.
+    An ``Iterable`` wrapping ``it`` with the same ``Iterator`` as ``it``.
 
     Args:
         it: ``Iterable``.
@@ -23,7 +23,7 @@ class Iterable_(Iterable[A]):
     def map(self, f: Callable[[A], B]) -> 'Iterable_[B]':
         """
         Map ``f`` over the wrapped ``Iterable``,
-        and wrap the result in a new ``Iterable_``.
+        and rewrap as a new ``Iterable_``.
 
         >>> Iterable_(range(5)).map(lambda x: x * 2).to_list()
         [0, 2, 4, 6, 8]
@@ -39,7 +39,7 @@ class Iterable_(Iterable[A]):
     def filter(self, f: Callable[[A], Any]) -> 'Iterable_[A]':
         """
         Filter ``f`` over the wrapped ``Iterable``,
-        and wrap the result in a new ``Iterable_``.
+        and rewrap as a new ``Iterable_``.
 
         >>> Iterable_(range(5)).filter(lambda x: x % 2 == 0).to_list()
         [0, 2, 4]
@@ -55,7 +55,7 @@ class Iterable_(Iterable[A]):
     def flat_map(self, f: Callable[[A], Iterable[B]]) -> 'Iterable_[B]':
         """
         Chain the results of mapping ``f`` over the wrapped ``Iterable``,
-        and wrap the result in a new ``Iterable_``.
+        and rewrap as a new ``Iterable_``.
 
         >>> Iterable_(range(5)).flat_map(lambda x: [x, x + 1]).to_list()
         [0, 1, 1, 2, 2, 3, 3, 4, 4, 5]
@@ -70,8 +70,8 @@ class Iterable_(Iterable[A]):
 
     def extend(self, it: Iterable[A]) -> 'Iterable_[A]':
         """
-        Extend the wrapped ``Iterable`` with ``it``,
-        and wrap the result in a new ``Iterable_``.
+        Chain the wrapped ``Iterable`` with ``it``,
+        and rewrap as a new ``Iterable_``.
 
         >>> Iterable_(range(5)).extend([5, 6]).to_list()
         [0, 1, 2, 3, 4, 5, 6]
@@ -87,7 +87,7 @@ class Iterable_(Iterable[A]):
     def zip(self) -> 'Iterable_':
         """
         Zip the wrapped ``Iterable``,
-        and wrap the result in a new ``Iterable_``.
+        and rewrap as a new ``Iterable_``.
 
         >>> Iterable_(dict(a=1, b=2).items()).zip().to_list()
         [('a', 'b'), (1, 2)]
@@ -99,24 +99,26 @@ class Iterable_(Iterable[A]):
 
     def to_list(self) -> List[A]:
         """
-        Convert the wrapped ``Iterable`` to a ``list``.
+        Return the wrapped ``Iterable``
+        converted to ``list``.
 
         >>> Iterable_(range(5)).to_list()
         [0, 1, 2, 3, 4]
 
         Returns:
-            Wrapped ``Iterable`` as a ``list``.
+            Wrapped ``Iterable`` converted to ``list``.
         """
         return list(self._it)
 
     def to_dict(self) -> dict:
         """
-        Convert the wrapped ``Iterable`` to a ``dict``.
+        Return the wrapped ``Iterable``
+        converted to ``dict``.
 
         >>> Iterable_([('a', 1), ('b', 2)]).to_dict()
         {'a': 1, 'b': 2}
 
         Returns:
-            Wrapped ``Iterable`` as a ``dict``.
+            Wrapped ``Iterable`` converted to ``dict``.
         """
         return dict(self._it)

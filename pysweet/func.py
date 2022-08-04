@@ -6,8 +6,8 @@ S = TypeVar('S')
 
 def pack_(func: Callable[..., T]) -> Callable[[S], T]:
     """
-    Transform ``func`` into a single-argument function.
-    The result sends ``(x, y, ...)`` to ``func(x, y, ...)``.
+    Return a single-argument function that sends
+    ``(x, y, ...)`` to ``func(x, y, ...)``.
 
     >>> list(map(pack_(lambda x, y: x + y), [(1, 2), (3, 4)]))
     [3, 7]
@@ -27,8 +27,8 @@ def pack_(func: Callable[..., T]) -> Callable[[S], T]:
 
 def compose_(*funcs: Callable) -> Callable[[S], T]:
     """
-    Compose elements of ``funcs``.
-    The result sends ``x`` to ``funcs[-1](funcs[-2](...(funcs[0](x))...))``.
+    Compose elements of ``funcs``, sending
+    ``x`` to ``funcs[-1](funcs[-2](...(funcs[0](x))...))``.
 
     >>> compose_(lambda x: x + 1, lambda x: x * 2)(1)
     4
