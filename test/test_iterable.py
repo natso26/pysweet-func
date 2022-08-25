@@ -35,5 +35,14 @@ class TestIterable:
     def test_to_list(self):
         assert Iterable_(['a', 'b', 'c']).to_list() == ['a', 'b', 'c']
 
+    def test_consume(self):
+        acc = []
+
+        iterable = Iterable_((acc.append(x) for x in ['a', 'b', 'c']))
+        assert acc == []
+
+        iterable.consume()
+        assert acc == ['a', 'b', 'c']
+
     def test_to_dict(self):
         assert Iterable_([('a', 1), ('b', 2), ('c', 3)]).to_dict() == {'a': 1, 'b': 2, 'c': 3}

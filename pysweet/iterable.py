@@ -1,26 +1,28 @@
 import itertools
-from typing import Iterable, TypeVar, Callable, Iterator, Any, List
+from collections import deque
+from typing import Iterable, TypeVar, Callable, Iterator, List, Union, Any
 
-A = TypeVar('A')
-B = TypeVar('B')
+_A = TypeVar('_A')
+_B = TypeVar('_B')
 
 
-class Iterable_(Iterable[A]):
+class Iterable_(Iterable[_A]):
     """
     An ``Iterable`` wrapping ``it`` with the same ``Iterator`` as ``it``.
 
     Args:
         it: ``Iterable``.
     """
-    _it: Iterable[A]
 
-    def __init__(self, it: Iterable[A]):
+    _it: Iterable[_A]
+
+    def __init__(self, it: Iterable[_A]):
         self._it = it
 
-    def __iter__(self) -> Iterator[A]:
+    def __iter__(self) -> Iterator[_A]:
         return self._it.__iter__()
 
-    def map(self, f: Callable[[A], B]) -> 'Iterable_[B]':
+    def map(self, f: Callable[[_A], _B]) -> 'Iterable_[_B]':
         """
         Map ``f`` over the wrapped ``Iterable``,
         and rewrap as a new ``Iterable_``.
@@ -34,9 +36,10 @@ class Iterable_(Iterable[A]):
         Returns:
             Mapped ``Iterable_``.
         """
+
         return Iterable_(map(f, self._it))
 
-    def filter(self, f: Callable[[A], Any]) -> 'Iterable_[A]':
+    def filter(self, f: Callable[[_A], Any]) -> 'Iterable_[_A]':
         """
         Filter ``f`` over the wrapped ``Iterable``,
         and rewrap as a new ``Iterable_``.
@@ -50,9 +53,10 @@ class Iterable_(Iterable[A]):
         Returns:
             Filtered ``Iterable_``.
         """
+
         return Iterable_(filter(f, self._it))
 
-    def flat_map(self, f: Callable[[A], Iterable[B]]) -> 'Iterable_[B]':
+    def flat_map(self, f: Callable[[_A], Iterable[_B]]) -> 'Iterable_[_B]':
         """
         Chain the results of mapping ``f`` over the wrapped ``Iterable``,
         and rewrap as a new ``Iterable_``.
@@ -66,9 +70,10 @@ class Iterable_(Iterable[A]):
         Returns:
             Flat-mapped ``Iterable_``.
         """
+
         return Iterable_(itertools.chain.from_iterable(map(f, self._it)))
 
-    def extend(self, it: Iterable[A]) -> 'Iterable_[A]':
+    def extend(self, it: Iterable[_B]) -> 'Iterable_[Union[_A, _B]]':
         """
         Chain the wrapped ``Iterable`` with ``it``,
         and rewrap as a new ``Iterable_``.
@@ -82,6 +87,7 @@ class Iterable_(Iterable[A]):
         Returns:
             Extended ``Iterable_``.
         """
+
         return Iterable_(itertools.chain(self._it, it))
 
     def zip(self) -> 'Iterable_':
@@ -95,9 +101,10 @@ class Iterable_(Iterable[A]):
         Returns:
             Zipped ``Iterable_``.
         """
+
         return Iterable_(zip(*self._it))
 
-    def to_list(self) -> List[A]:
+    def to_list(self) -> List[_A]:
         """
         Return the wrapped ``Iterable``
         converted to ``list``.
@@ -108,7 +115,23 @@ class Iterable_(Iterable[A]):
         Returns:
             Wrapped ``Iterable`` converted to ``list``.
         """
+
         return list(self._it)
+
+    def consume(self) -> None:
+        """
+        Iterate over the wrapped ``Iterable``.
+
+        >>> Iterable_(range(3)).map(print).consume()
+        0
+        1
+        2
+
+        Returns:
+            None.
+        """
+
+        deque(self._it, maxlen=0)
 
     def to_dict(self) -> dict:
         """
@@ -121,4 +144,5 @@ class Iterable_(Iterable[A]):
         Returns:
             Wrapped ``Iterable`` converted to ``dict``.
         """
+
         return dict(self._it)

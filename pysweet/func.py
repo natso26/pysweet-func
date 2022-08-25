@@ -1,10 +1,9 @@
-from typing import Callable, TypeVar
+from typing import Callable, TypeVar, Any
 
-T = TypeVar('T')
-S = TypeVar('S')
+_T = TypeVar('_T')
 
 
-def pack_(func: Callable[..., T]) -> Callable[[S], T]:
+def pack_(func: Callable[..., _T]) -> Callable[[tuple], _T]:
     """
     Return a single-argument function that sends
     ``(x, y, ...)`` to ``func(x, y, ...)``.
@@ -19,13 +18,13 @@ def pack_(func: Callable[..., T]) -> Callable[[S], T]:
         Function with a single packed argument.
     """
 
-    def packed(args):
+    def packed(args: tuple) -> _T:
         return func(*args)
 
     return packed
 
 
-def compose_(*funcs: Callable) -> Callable[[S], T]:
+def compose_(*funcs: Callable[[Any], Any]) -> Callable[[Any], Any]:
     """
     Compose elements of ``funcs``, sending
     ``x`` to ``funcs[-1](funcs[-2](...(funcs[0](x))...))``.
@@ -40,9 +39,10 @@ def compose_(*funcs: Callable) -> Callable[[S], T]:
         Composed function.
     """
 
-    def composed(arg):
+    def composed(arg: Any) -> Any:
         for func in funcs:
             arg = func(arg)
+
         return arg
 
     return composed
