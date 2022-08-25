@@ -76,7 +76,7 @@ Now you can with ``pysweet``:
 
 Compared to many excellent alternatives,
 ``pysweet`` is lightweight
-with fewer than 100 lines of code.
+with around 100 lines of code.
 
 Being only syntactic sugar, ``pysweet``:
 

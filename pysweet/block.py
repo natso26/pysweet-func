@@ -1,9 +1,10 @@
-from typing import Any, Callable, TypeVar, NoReturn
+from typing import Callable, TypeVar, NoReturn, Union, ContextManager, Any
 
-T = TypeVar('T')
+_T = TypeVar('_T')
+_S = TypeVar('_S')
 
 
-def block_(*args):
+def block_(*args: Any) -> Any:
     """
     Return the last element of ``args``.
     Allow writing multi-expression lambdas.
@@ -21,10 +22,11 @@ def block_(*args):
     Returns:
         Last element of ``args``.
     """
+
     return args[-1]
 
 
-def if_(condition: Any, then_do: Callable[[], T], else_do: Callable[[], T]) -> T:
+def if_(condition: Any, then_do: Callable[[], _T], else_do: Callable[[], _S]) -> Union[_T, _S]:
     """
     Ternary operator in the natural order.
     If ``condition``, then do ``then_do``, else do ``else_do``.
@@ -40,10 +42,39 @@ def if_(condition: Any, then_do: Callable[[], T], else_do: Callable[[], T]) -> T
     Returns:
         Result of ``then_do`` or ``else_do``.
     """
+
     if condition:
         return then_do()
+
     else:
         return else_do()
+
+
+def try_(do: Callable[[], _T], catch: Callable[[Exception], _S]) -> Union[_T, _S]:
+    """
+    Allow try-catch blocks inside lambdas.
+    Try ``do``; catch exception with ``catch``.
+
+    >>> val = lambda: try_(
+    ...     lambda: 1,
+    ...     catch=lambda e: 2,
+    ... )
+    >>> val()
+    1
+
+    Args:
+        do: Callback.
+        catch: Callback if ``do`` raises an exception.
+
+    Returns:
+        Result of ``do`` or ``catch``.
+    """
+
+    try:
+        return do()
+
+    except Exception as e:
+        return catch(e)
 
 
 def raise_(exception: Exception) -> NoReturn:
@@ -63,29 +94,26 @@ def raise_(exception: Exception) -> NoReturn:
     Returns:
         No return.
     """
+
     raise exception
 
 
-def try_(do: Callable[[], T], catch: Callable[[Exception], T]) -> T:
+def with_(context: ContextManager[_S], do: Callable[[_S], _T]) -> _T:
     """
-    Allow try-catch blocks inside lambdas.
-    Try ``do``; catch exception with ``catch``.
+    Execute ``do`` in the context of ``context``.
 
-    >>> val = lambda: try_(
-    ...     lambda: 1,
-    ...     catch=lambda e: 2,
-    ... )
-    >>> val()
+    >>> from threading import Lock
+    >>> lock = Lock()
+    >>> with_(lock, lambda _: 1)
     1
 
     Args:
+        context: Context manager.
         do: Callback.
-        catch: Callback if ``do`` raises an exception.
 
     Returns:
-        Result of ``do`` or ``catch``.
+        Result of ``do``.
     """
-    try:
-        return do()
-    except Exception as e:
-        return catch(e)
+
+    with context as ctx:
+        return do(ctx)
