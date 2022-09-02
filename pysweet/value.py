@@ -6,6 +6,7 @@ _A = TypeVar('_A')
 _B = TypeVar('_B')
 
 
+# noinspection PyPep8Naming
 class Value_(Pipeable_['Value_', _A]):
     """
     Pipeable value.

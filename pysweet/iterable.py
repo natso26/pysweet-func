@@ -8,6 +8,7 @@ _A = TypeVar('_A')
 _B = TypeVar('_B')
 
 
+# noinspection PyPep8Naming
 class Iterable_(Iterable[_A], Pipeable_['Iterable_', Iterable[_A]], Chainable_['Iterable_', _A]):
     """
     ``Iterable`` with method chaining.
@@ -118,7 +119,7 @@ class Iterable_(Iterable[_A], Pipeable_['Iterable_', Iterable[_A]], Chainable_['
 
         return Iterable_(chain(self._it, it))
 
-    def zip(self) -> 'Iterable_':
+    def zip(self) -> 'Iterable_[tuple]':
         """
         Zip self immutably.
 

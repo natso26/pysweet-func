@@ -6,15 +6,16 @@ _T = TypeVar('_T')
 
 SimpleCoroutine = Coroutine[Any, Any, _T]
 
-Callback = Callable[[], _T]
+Lazy = Callable[[], _T]
 
 Transform = Callable[[_S], _T]
 
-AsyncTransform = Callable[[_S], SimpleCoroutine[_T]]
+AsyncTransform = Callable[[_S], SimpleCoroutine]
 
-_Pipeable = TypeVar('_Pipeable', bound='Pipable')
+_Pipeable = TypeVar('_Pipeable', bound='Pipeable_')
 
 
+# noinspection PyPep8Naming
 class Pipeable_(Generic[_Pipeable, _S]):
     @property
     @abstractmethod
@@ -26,9 +27,10 @@ class Pipeable_(Generic[_Pipeable, _S]):
         pass
 
 
-_Chainable = TypeVar('_Chainable', bound='Chainable')
+_Chainable = TypeVar('_Chainable', bound='Chainable_')
 
 
+# noinspection PyPep8Naming
 class Chainable_(Generic[_Chainable, _S]):
     @abstractmethod
     def flat_map(self, f: Transform[_S, '_Chainable[_T]']) -> '_Chainable[_T]':
