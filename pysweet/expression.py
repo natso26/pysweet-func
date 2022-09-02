@@ -1,6 +1,6 @@
 from typing import TypeVar, NoReturn, Union, ContextManager, Any
 
-from pysweet.types import Transform, SimpleCoroutine, Callback, AsyncTransform
+from pysweet.types import Transform, SimpleCoroutine, Lazy, AsyncTransform
 
 _S = TypeVar('_S')
 _T = TypeVar('_T')
@@ -27,7 +27,7 @@ def block_(*expressions: Any) -> Any:
     return expressions[-1]
 
 
-def if_(condition: Any, then_do: Callback[_S], else_do: Callback[_T]) -> Union[_S, _T]:
+def if_(condition: Any, then_do: Lazy[_S], else_do: Lazy[_T]) -> Union[_S, _T]:
     """
     ``if`` expression.
 
@@ -50,7 +50,8 @@ def if_(condition: Any, then_do: Callback[_S], else_do: Callback[_T]) -> Union[_
         return else_do()
 
 
-def try_(do: Callback[_S], catch: Transform[Exception, _T]) -> Union[_S, _T]:
+# noinspection PyShadowingNames
+def try_(do: Lazy[_S], catch: Transform[Exception, _T]) -> Union[_S, _T]:
     """
     ``try`` expression.
 
