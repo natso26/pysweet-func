@@ -10,7 +10,7 @@ Lazy = Callable[[], _T]
 
 Transform = Callable[[_S], _T]
 
-AsyncTransform = Callable[[_S], SimpleCoroutine]
+AsyncTransform = Transform[_S, SimpleCoroutine]
 
 _Pipeable = TypeVar('_Pipeable', bound='Pipeable_')
 
