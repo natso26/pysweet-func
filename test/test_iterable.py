@@ -2,10 +2,16 @@ from pysweet import Iterable_
 
 
 class TestIterable:
-    def test_iter(self):
+    def test___iter__(self):
         assert list(
             Iterable_(['a', 'b', 'c'])
         ) == ['a', 'b', 'c']
+
+    def test_val(self):
+        assert Iterable_(['a', 'b', 'c']).val == ['a', 'b', 'c']
+
+    def test_pipe(self):
+        assert Iterable_(['a', 'b', 'c']).pipe(lambda x: x + ['d'])._it == ['a', 'b', 'c', 'd']
 
     def test_map(self):
         assert list(
@@ -32,9 +38,6 @@ class TestIterable:
             Iterable_([['a', 'b'], ['c', 'd'], ['e', 'f']]).zip()._it
         ) == [('a', 'c', 'e'), ('b', 'd', 'f')]
 
-    def test_to_list(self):
-        assert Iterable_(['a', 'b', 'c']).to_list() == ['a', 'b', 'c']
-
     def test_consume(self):
         acc = []
 
@@ -43,6 +46,9 @@ class TestIterable:
 
         iterable.consume()
         assert acc == ['a', 'b', 'c']
+
+    def test_to_list(self):
+        assert Iterable_(['a', 'b', 'c']).to_list() == ['a', 'b', 'c']
 
     def test_to_dict(self):
         assert Iterable_([('a', 1), ('b', 2), ('c', 3)]).to_dict() == {'a': 1, 'b': 2, 'c': 3}

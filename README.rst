@@ -6,9 +6,9 @@ pysweet-func
 Why ``pysweet``?
 ----------------
 
-Python can sometimes be unwieldy in production.
+Python can sometimes be unwieldy.
 
-Consider the following 3 variants
+Consider the following variants
 of the same logic:
 
 .. code:: python
@@ -40,16 +40,16 @@ of the same logic:
        ),
    )))
 
-* The first is in the imperative style;
-  it can become convoluted as requirements evolve.
+* The imperative style
+  can grow complex as requirements evolve;
 
-* The second uses comprehensions,
-  which can get complicated when nested.
+* The comprehension style
+  can get complicated when nested;
 
-* The last utilizes functional programming:
-  more modular, but not as readable.
+* The functional style
+  is not very readable in Python.
 
-In JavaScript, the same logic is simpler:
+In JavaScript, the same logic can be written:
 
 .. code:: js
 
@@ -58,9 +58,7 @@ In JavaScript, the same logic is simpler:
        .filter(x => x % 2 === 0)
        .flatMap(x => [x, x * 2])
 
-Can we write analogous code in Python?
-
-Now you can with ``pysweet``:
+With ``pysweet``, we can analogously write:
 
 .. code:: python
 
@@ -74,28 +72,24 @@ Now you can with ``pysweet``:
        .to_list()
    )
 
-Compared to many excellent alternatives,
-``pysweet`` is lightweight
-with around 100 lines of code.
+``pysweet`` offers many other similar features.
 
-Being only syntactic sugar, ``pysweet``:
+``pysweet`` is:
 
-* has little performance overhead;
-* does not complicate debugging;
-* makes onboarding new developers easy.
+* lightweight, with ~100 lines of code;
 
-``pysweet`` has successfully been used in production.
+* mostly syntactic sugar, hence
+  performant, easy to debug, and easy to learn;
+
+* in production use.
 
 Sweeten Python with ``pysweet``!
 
-Features
---------
+Select features
+---------------
 
-Fluent iterable
-~~~~~~~~~~~~~~~
-
-Iterable with method chaining
-in the style of JavaScript and Scala.
+* Iterable with method chaining,
+  cf. JavaScript and Scala:
 
 .. code:: python
 
@@ -108,11 +102,8 @@ in the style of JavaScript and Scala.
    )
    # [2, 3]
 
-Multi-expression lambda
-~~~~~~~~~~~~~~~~~~~~~~~
-
-As in many modern languages,
-even a systems one like Go.
+* Multi-expression lambda,
+  common in modern languages:
 
 .. code:: python
 
@@ -124,14 +115,10 @@ even a systems one like Go.
    )
    # val() == 2
 
-Statements as expressions
-~~~~~~~~~~~~~~~~~~~~~~~~~
+* Statement as expression,
+  cf. Scala and Haskell:
 
-Composable control flow as in functional languages
-such as Scala and Haskell.
-
-Bonus: ``if_`` is the ternary operator
-in the natural order.
+  (``if_`` is also the ternary operator)
 
 .. code:: python
 
@@ -150,14 +137,10 @@ in the natural order.
    )
    # 'test'
 
-Documentation
--------------
+Resources
+---------
 
 -  `Read the Docs <https://pysweet-func.readthedocs.io>`__
-
-Installation
-------------
-
 -  `PyPI <https://pypi.org/project/pysweet-func>`__
 
 .. |test| image:: https://github.com/natso26/pysweet-func/actions/workflows/test.yml/badge.svg?branch=main&event=push

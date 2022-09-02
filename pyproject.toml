@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pysweet-func"
-version = "1.0.9"
-description = "Composable Python for production via syntactic sugar"
+version = "1.1.0"
+description = "Composable Python via syntactic sugar"
 authors = ["Nat Sothanaphan <natsothanaphan@gmail.com>"]
 readme = "README.rst"
 repository = "https://github.com/natso26/pysweet-func"
@@ -28,6 +28,8 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
+Sphinx = "^5.1.1"
+sphinx-rtd-theme = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
