@@ -25,6 +25,14 @@ pysweet.iterable
     :undoc-members:
     :show-inheritance:
 
+pysweet.types
+-------------
+
+.. automodule:: pysweet.types
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pysweet.value
 -------------
 
