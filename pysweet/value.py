@@ -37,8 +37,8 @@ class Value_(Pipeable_['Value_', _A]):
         """
         Transform self with ``f`` immutably.
 
-        >>> Value_(2).pipe(lambda x: x * 2).val
-        4
+        >>> Value_(2).pipe(lambda x: x + 1).val
+        3
 
         Args:
             f: Function.

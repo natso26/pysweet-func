@@ -11,9 +11,7 @@ class TestIterable:
         assert Iterable_(['a', 'b', 'c']).val == ['a', 'b', 'c']
 
     def test_pipe(self):
-        assert list(
-            Iterable_(['a', 'b', 'c']).pipe(lambda x: x + ['d'])._it
-        ) == ['a', 'b', 'c', 'd']
+        assert Iterable_(['a', 'b', 'c']).pipe(lambda x: x + ['d'])._it == ['a', 'b', 'c', 'd']
 
     def test_map(self):
         assert list(

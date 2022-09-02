@@ -6,7 +6,7 @@ import pytest
 from pysweet import block_, if_, raise_, try_, with_, async_block_, await_
 
 
-class TestBlock:
+class TestExpression:
     def test_block_(self):
         assert block_(
             x := 'a',
@@ -72,6 +72,9 @@ class TestBlock:
 
         assert iscoroutine(result)
         assert count == 0
+
+        assert run(result) == 'ab'
+        assert count == 1
 
         count = 0
 
