@@ -1,21 +1,16 @@
 pysweet
 =======
 
-pysweet.block
--------------
+pysweet.expression
+------------------
 
-Write complex lambdas by
-converting statements to expressions.
-
-.. automodule:: pysweet.block
+.. automodule:: pysweet.expression
     :members:
     :undoc-members:
     :show-inheritance:
 
 pysweet.func
 ------------
-
-Function transformers.
 
 .. automodule:: pysweet.func
     :members:
@@ -25,10 +20,15 @@ Function transformers.
 pysweet.iterable
 ----------------
 
-Immutable wrapper of ``Iterable``
-with method chaining.
-
 .. automodule:: pysweet.iterable
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysweet.value
+-------------
+
+.. automodule:: pysweet.value
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,12 +1,13 @@
 from typing import Callable, TypeVar, Any
 
+from pysweet.types import Transform
+
 _T = TypeVar('_T')
 
 
-def pack_(func: Callable[..., _T]) -> Callable[[tuple], _T]:
+def pack_(func: Callable[..., _T]) -> Transform[tuple, _T]:
     """
-    Return a single-argument function that sends
-    ``(x, y, ...)`` to ``func(x, y, ...)``.
+    Pack function arguments into a single ``tuple``.
 
     >>> list(map(pack_(lambda x, y: x + y), [(1, 2), (3, 4)]))
     [3, 7]
@@ -15,7 +16,7 @@ def pack_(func: Callable[..., _T]) -> Callable[[tuple], _T]:
         func: Function.
 
     Returns:
-        Function with a single packed argument.
+        Function mapping ``(x, y, ...)`` to ``func(x, y, ...)``.
     """
 
     def packed(args: tuple) -> _T:
@@ -24,10 +25,10 @@ def pack_(func: Callable[..., _T]) -> Callable[[tuple], _T]:
     return packed
 
 
-def compose_(*funcs: Callable[[Any], Any]) -> Callable[[Any], Any]:
+def compose_(*funcs: Transform[Any, Any]) -> Transform[Any, Any]:
     """
-    Compose elements of ``funcs``, sending
-    ``x`` to ``funcs[-1](funcs[-2](...(funcs[0](x))...))``.
+    Compose single-argument functions,
+    evaluting from left to right.
 
     >>> compose_(lambda x: x + 1, lambda x: x * 2)(1)
     4
