@@ -1,8 +1,7 @@
-from typing import TypeVar, NoReturn, Union, ContextManager, Any, ParamSpec
+from typing import TypeVar, NoReturn, Union, ContextManager, Any
 
-from pysweet.types import Transform, AsyncCallable, SimpleCoroutine, Callback
+from pysweet.types import Transform, SimpleCoroutine, Callback, AsyncTransform
 
-_P = ParamSpec('_P')
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 
@@ -160,13 +159,13 @@ def async_block_(*expressions: Transform[Any, Any]) -> SimpleCoroutine[Any]:
     return coro()
 
 
-def await_(func: AsyncCallable[_P, _T]) -> '_Await[_P, _T]':
+def await_(func: AsyncTransform[_S, _T]) -> '_Await[_S, _T]':
     """
     ``await`` expression.
     Only valid inside an ``async_block_``.
 
     Args:
-        func: Asynchronous function.
+        func: Asynchronous transform.
 
     Returns:
         Internal ``_Await`` object.
@@ -175,10 +174,10 @@ def await_(func: AsyncCallable[_P, _T]) -> '_Await[_P, _T]':
     return _Await(func)
 
 
-class _Await(AsyncCallable[_P, _T]):
-    _func: AsyncCallable[_P, _T]
+class _Await(AsyncTransform[_S, _T]):
+    _func: AsyncTransform[_S, _T]
 
-    def __init__(self, func: AsyncCallable[_P, _T]):
+    def __init__(self, func: AsyncTransform[_S, _T]):
         self._func = func
 
     def __call__(self, *args, **kwargs) -> SimpleCoroutine[_T]:

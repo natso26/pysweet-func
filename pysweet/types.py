@@ -1,7 +1,6 @@
 from abc import abstractmethod
-from typing import TypeVar, Coroutine, Any, Callable, ParamSpec, Generic
+from typing import TypeVar, Coroutine, Any, Callable, Generic
 
-_P = ParamSpec('_P')
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 
@@ -11,7 +10,7 @@ Callback = Callable[[], _T]
 
 Transform = Callable[[_S], _T]
 
-AsyncCallable = Callable[_P, SimpleCoroutine[_T]]
+AsyncTransform = Callable[[_S], SimpleCoroutine[_T]]
 
 _Pipeable = TypeVar('_Pipeable', bound='Pipable')
 
