@@ -6,8 +6,6 @@ pysweet-func
 Why ``pysweet``?
 ----------------
 
-Python can sometimes be unwieldy.
-
 Consider the following variants
 of the same logic:
 
@@ -58,7 +56,9 @@ In JavaScript, the same logic can be written:
        .filter(x => x % 2 === 0)
        .flatMap(x => [x, x * 2])
 
-With ``pysweet``, we can analogously write:
+Can we write analogous code in Python?
+
+Now you can with ``pysweet``!
 
 .. code:: python
 
@@ -72,24 +72,24 @@ With ``pysweet``, we can analogously write:
        .to_list()
    )
 
-``pysweet`` offers many other similar features.
+``pysweet`` also offers many other similar features.
 
 ``pysweet`` is:
 
-* lightweight, with ~100 lines of code;
+* lightweight, with around 100 lines of code;
 
-* mostly syntactic sugar, hence
+* mostly syntactic sugar, so it is
   performant, easy to debug, and easy to learn;
 
-* in production use.
+* successfully used in production.
 
 Sweeten Python with ``pysweet``!
 
-Select features
+Sample features
 ---------------
 
 * Iterable with method chaining,
-  cf. JavaScript and Scala:
+  in the spirit of JavaScript and Scala:
 
 .. code:: python
 
@@ -116,9 +116,8 @@ Select features
    # val() == 2
 
 * Statement as expression,
-  cf. Scala and Haskell:
-
-  (``if_`` is also the ternary operator)
+  in the spirit of Scala and Haskell
+  (``if_`` is also the ternary operator):
 
 .. code:: python
 
@@ -137,11 +136,11 @@ Select features
    )
    # 'test'
 
-Resources
----------
+Next steps
+----------
 
--  `Read the Docs <https://pysweet-func.readthedocs.io>`__
--  `PyPI <https://pypi.org/project/pysweet-func>`__
+-  `Installation <https://pypi.org/project/pysweet-func>`__
+-  `Documentation <https://pysweet-func.readthedocs.io>`__
 
 .. |test| image:: https://github.com/natso26/pysweet-func/actions/workflows/test.yml/badge.svg?branch=main&event=push
 .. |codecov| image:: https://codecov.io/gh/natso26/pysweet-func/branch/main/graph/badge.svg
