@@ -48,4 +48,4 @@ class Value_(Pipeable_['Value_', _A]):
             Transformed ``Value_``.
         """
 
-        return Value_(f(self.val))
+        return Value_(f(self._val))
