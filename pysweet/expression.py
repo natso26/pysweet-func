@@ -118,7 +118,7 @@ def with_(context: ContextManager[_S], do: Transform[_S, _T]) -> _T:
         return do(ctx)
 
 
-def async_block_(*expressions: Transform[Any, Any] | '_Await[Any, Any]') -> SimpleCoroutine[Any]:
+def async_block_(*expressions: Union[Transform[Any, Any], '_Await[Any, Any]']) -> SimpleCoroutine[Any]:
     """
     Asynchronous code block evaluating expressions in order.
     Use ``await_`` to await a specific expression.
