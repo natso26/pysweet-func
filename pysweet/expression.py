@@ -1,4 +1,4 @@
-from typing import TypeVar, NoReturn, Union, ContextManager, Any
+from typing import TypeVar, NoReturn, Union, ContextManager, Any, Generic
 
 from pysweet.types import Transform, SimpleCoroutine, Lazy, AsyncTransform
 
@@ -118,7 +118,7 @@ def with_(context: ContextManager[_S], do: Transform[_S, _T]) -> _T:
         return do(ctx)
 
 
-def async_block_(*expressions: Transform[Any, Any]) -> SimpleCoroutine[Any]:
+def async_block_(*expressions: Transform[Any, Any] | '_Await[Any, Any]') -> SimpleCoroutine[Any]:
     """
     Asynchronous code block evaluating expressions in order.
     Use ``await_`` to await a specific expression.
@@ -147,13 +147,15 @@ def async_block_(*expressions: Transform[Any, Any]) -> SimpleCoroutine[Any]:
     """
 
     async def coro() -> Any:
-        val = None
+        val: Any = None
 
         for expression in expressions:
-            val = expression(val)
-
             if isinstance(expression, _Await):
-                val = await val
+                # noinspection PyProtectedMember
+                val = await expression._func(val)
+
+            else:
+                val = expression(val)
 
         return val
 
@@ -175,11 +177,8 @@ def await_(func: AsyncTransform[_S, _T]) -> '_Await[_S, _T]':
     return _Await(func)
 
 
-class _Await(AsyncTransform[_S, _T]):
+class _Await(Generic[_S, _T]):
     _func: AsyncTransform[_S, _T]
 
     def __init__(self, func: AsyncTransform[_S, _T]):
         self._func = func
-
-    def __call__(self, *args, **kwargs) -> SimpleCoroutine[_T]:
-        return self._func(*args, **kwargs)

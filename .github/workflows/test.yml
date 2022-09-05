@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip poetry
-          poetry install
+          poetry install --without docs
       - name: Test with pytest
         run: |
           poetry run pytest --cov=pysweet --cov-report=xml

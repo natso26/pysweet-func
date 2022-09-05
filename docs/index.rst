@@ -7,7 +7,7 @@ Composable Python via syntactic sugar.
    :maxdepth: 2
    :caption: Overview
 
-   Readme <readme-link>
+   Readme <readme>
 
 .. toctree::
    :maxdepth: 2
