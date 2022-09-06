@@ -1,9 +1,9 @@
 from asyncio import sleep, run, iscoroutine
-from typing import ContextManager
+from typing import ContextManager, AsyncContextManager
 
 import pytest
 
-from pysweet import block_, if_, raise_, try_, with_, async_block_, await_
+from pysweet import block_, if_, raise_, try_, with_, async_block_, await_, async_with_
 
 
 class TestExpression:
@@ -117,3 +117,20 @@ class TestExpression:
 
         assert result == 'abcb'
         assert count == 2
+
+    def test_async_with_(self):
+        exited = False
+
+        class MyAsyncContextManager(AsyncContextManager):
+            async def __aenter__(self):
+                return 'a'
+
+            async def __aexit__(self, exc_type, exc_value, traceback):
+                nonlocal exited
+                exited = True
+
+        async def do(x):
+            return x + 'b'
+
+        assert run(async_with_(MyAsyncContextManager(), do)) == 'ab'
+        assert exited

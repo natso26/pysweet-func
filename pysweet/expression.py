@@ -1,4 +1,4 @@
-from typing import TypeVar, NoReturn, Union, ContextManager, Any, Generic
+from typing import TypeVar, NoReturn, Union, ContextManager, Any, Generic, AsyncContextManager
 
 from pysweet.types import Transform, SimpleCoroutine, Lazy, AsyncTransform
 
@@ -175,6 +175,32 @@ def await_(func: AsyncTransform[_S, _T]) -> '_Await[_S, _T]':
     """
 
     return _Await(func)
+
+
+def async_with_(context: AsyncContextManager[_S], do: AsyncTransform[_S, _T]) -> SimpleCoroutine[_T]:
+    """
+    ``async with`` expression.
+
+    >>> from asyncio import Lock, run
+    >>> lock = Lock()
+    >>> async def main():
+    ...     return 1
+    >>> run(async_with_(lock, lambda _: main()))
+    1
+
+    Args:
+        context: Asynchronous context manager.
+        do: Asynchronous callback.
+
+    Returns:
+        Coroutine running ``do`` in the context of ``context``.
+    """
+
+    async def coro() -> _T:
+        async with context as ctx:
+            return await do(ctx)
+
+    return coro()
 
 
 class _Await(Generic[_S, _T]):
