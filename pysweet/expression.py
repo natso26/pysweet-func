@@ -2,6 +2,17 @@ from typing import TypeVar, NoReturn, Union, ContextManager, Any, Generic, Async
 
 from pysweet.types import Transform, SimpleCoroutine, Lazy, AsyncTransform
 
+__all__ = [
+    'block_',
+    'if_',
+    'try_',
+    'raise_',
+    'with_',
+    'async_block_',
+    'await_',
+    'async_with_',
+]
+
 _S = TypeVar('_S')
 _T = TypeVar('_T')
 
