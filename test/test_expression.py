@@ -125,7 +125,7 @@ class TestExpression:
             async def __aenter__(self):
                 return 'a'
 
-            async def __aexit__(self, exc_type, exc_value, traceback):
+            async def __aexit__(self, exc_type, exc_value, traceback) -> None:
                 nonlocal exited
                 exited = True
 

@@ -4,6 +4,10 @@ from typing import Iterable, TypeVar, Iterator, List, Union, Any
 
 from pysweet.types import Transform, Pipeable_, Chainable_
 
+__all__ = [
+    'Iterable_',
+]
+
 _A = TypeVar('_A')
 _B = TypeVar('_B')
 

@@ -2,6 +2,11 @@ from typing import Callable, TypeVar, Any
 
 from pysweet.types import Transform
 
+__all__ = [
+    'pack_',
+    'compose_',
+]
+
 _T = TypeVar('_T')
 
 
