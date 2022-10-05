@@ -1,6 +1,6 @@
-from typing import TypeVar
+from typing import TypeVar, Generic
 
-from pysweet.types import Transform, Pipeable_
+from pysweet.types import Transform
 
 __all__ = [
     'Value_',
@@ -11,7 +11,7 @@ _B = TypeVar('_B')
 
 
 # noinspection PyPep8Naming
-class Value_(Pipeable_['Value_', _A]):
+class Value_(Generic[_A]):
     """
     Pipeable value.
 

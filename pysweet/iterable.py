@@ -2,7 +2,7 @@ from collections import deque
 from itertools import chain
 from typing import Iterable, TypeVar, Iterator, List, Union, Any
 
-from pysweet.types import Transform, Pipeable_, Chainable_
+from pysweet.types import Transform
 
 __all__ = [
     'Iterable_',
@@ -13,7 +13,7 @@ _B = TypeVar('_B')
 
 
 # noinspection PyPep8Naming
-class Iterable_(Iterable[_A], Pipeable_['Iterable_', Iterable[_A]], Chainable_['Iterable_', _A]):
+class Iterable_(Iterable[_A]):
     """
     ``Iterable`` with method chaining.
 
@@ -134,7 +134,7 @@ class Iterable_(Iterable[_A], Pipeable_['Iterable_', Iterable[_A]], Chainable_['
             Zipped ``Iterable_``.
         """
 
-        return Iterable_(zip(*self._it))
+        return Iterable_(zip(*self._it))  # type: ignore
 
     def consume(self) -> None:
         """
@@ -175,4 +175,4 @@ class Iterable_(Iterable[_A], Pipeable_['Iterable_', Iterable[_A]], Chainable_['
             Wrapped ``Iterable`` converted to ``dict``.
         """
 
-        return dict(self._it)
+        return dict(self._it)  # type: ignore

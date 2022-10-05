@@ -25,6 +25,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip poetry
           poetry install --without docs
+      - name: Type check with Mypy
+        run: |
+          poetry run mypy pysweet test
       - name: Test with pytest
         run: |
           poetry run pytest --cov=pysweet --cov-report=xml
