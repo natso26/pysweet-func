@@ -3,7 +3,7 @@ from typing import ContextManager, AsyncContextManager
 
 import pytest
 
-from pysweet import block_, if_, raise_, try_, with_, async_block_, await_, async_with_
+from pysweet import block_, if_, raise_, try_, with_, async_block_, await_, async_with_, async_try_
 
 
 class TestExpression:
@@ -117,6 +117,20 @@ class TestExpression:
 
         assert result == 'abcb'
         assert count == 2
+
+    def test_async_try_(self):
+        async def do_ok():
+            return 'a'
+
+        async def do_err():
+            raise Exception('b')
+
+        async def catch(e):
+            return str(e) + 'c'
+
+        assert run(async_try_(do_ok, catch)) == 'a'
+
+        assert run(async_try_(do_err, catch)) == 'bc'
 
     def test_async_with_(self):
         exited = False

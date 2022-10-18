@@ -1,6 +1,6 @@
 from typing import TypeVar, NoReturn, Union, ContextManager, Any, Generic, AsyncContextManager
 
-from pysweet.types import Transform, SimpleCoroutine, Lazy, AsyncTransform
+from pysweet.types import Transform, SimpleCoroutine, Lazy, AsyncTransform, AsyncLazy
 
 __all__ = [
     'block_',
@@ -10,6 +10,7 @@ __all__ = [
     'with_',
     'async_block_',
     'await_',
+    'async_try_',
     'async_with_',
 ]
 
@@ -186,6 +187,36 @@ def await_(func: AsyncTransform[_S, _T]) -> '_Await[_S, _T]':
     """
 
     return _Await(func)
+
+
+def async_try_(do: AsyncLazy[_S], catch: AsyncTransform[Exception, _T]) -> SimpleCoroutine[Union[_S, _T]]:
+    """
+    Asynchronous ``try`` expression.
+
+    >>> from asyncio import run
+    >>> async def do():
+    ...     return 1
+    >>> async def catch(e):
+    ...     return 2
+    >>> run(async_try_(do, catch))
+    1
+
+    Args:
+        do: Asynchronous callback.
+        catch: Asynchronous callback if ``do`` raises an exception.
+
+    Returns:
+        Coroutine returning result of ``do`` or ``catch``.
+    """
+
+    async def coro() -> Union[_S, _T]:
+        try:
+            return await do()
+
+        except Exception as e:
+            return await catch(e)
+
+    return coro()
 
 
 def async_with_(context: AsyncContextManager[_S], do: AsyncTransform[_S, _T]) -> SimpleCoroutine[_T]:
