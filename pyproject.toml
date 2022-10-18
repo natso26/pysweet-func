@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pysweet-func"
-version = "1.1.7"
+version = "1.1.8"
 description = "Composable Python via syntactic sugar"
 authors = ["Nat Sothanaphan <natsothanaphan@gmail.com>"]
 readme = "README.rst"
@@ -30,10 +30,10 @@ mypy = "^0.982"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.1.3"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.0.0"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = "^5.1.1"
+Sphinx = "^5.3.0"
 sphinx-rtd-theme = "^1.0.0"
 
 [build-system]
