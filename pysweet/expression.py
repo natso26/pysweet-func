@@ -189,6 +189,7 @@ def await_(func: AsyncTransform[_S, _T]) -> '_Await[_S, _T]':
     return _Await(func)
 
 
+# noinspection PyShadowingNames
 def async_try_(do: AsyncLazy[_S], catch: AsyncTransform[Exception, _T]) -> SimpleCoroutine[Union[_S, _T]]:
     """
     Asynchronous ``try`` expression.
