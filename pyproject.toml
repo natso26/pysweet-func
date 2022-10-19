@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pysweet-func"
-version = "1.1.8"
+version = "1.1.9"
 description = "Composable Python via syntactic sugar"
 authors = ["Nat Sothanaphan <natsothanaphan@gmail.com>"]
 readme = "README.rst"
